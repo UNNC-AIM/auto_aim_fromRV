@@ -18,22 +18,13 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    // ros::init(argc, argv, "opencv_test"); 
+    // 测试图片则对*线框起来的部分取消注释
+    //**********************************************************************************
+    // ros::init(argc, argv, "opencv_test");
     // if(argc != 2)
     // {
     //     cout<<"usage:rosrun opencv_test opencv_test_node <path of picture>"<<endl;
     // }  //图片路径最好为绝对路径
-
-    // VideoCapture capture("rs_v.webm");
- 
-	// while (true)
-	// {
-	// 	Mat frame;
-	// 	capture >> frame;
-    //     detect(frame);
-	// 	//imshow("读取视频", frame);
-	// 	waitKey(3);	//延时30
-	// }
 
     // double time1 = static_cast<double>(cv::getTickCount());
     // Mat image = cv::imread(argv[1]);
@@ -45,10 +36,22 @@ int main(int argc, char** argv)
     
     // double time_use = (time2 - time1)/cv::getTickFrequency()*1000;
     // std::cout<<"Time use: "<< time_use <<"ms"<<std::endl;//输出运行时间
+    //**********************************************************************************
 
-    ros::init(argc, argv, "image_converter");
-
-    ImageConverter ic;
+    // 要测试视频就对-线框起来的部分取消注释
+    //----------------------------------------------------------------------------------
+    // VideoCapture capture("rs_v.webm");
+ 
+	// while (true)
+	// {
+	// 	Mat frame;
+	// 	capture >> frame;
+    //     detect(frame);
+	// 	//imshow("读取视频", frame);
+	// 	waitKey(3);	//延时30
+	// }
+    //----------------------------------------------------------------------------------
+   
 
     ros::spin();
 }
