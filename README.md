@@ -17,4 +17,6 @@ _ROS1 Noetic环境_
   * 车到相机的tf为(0,0,0)：位移(x,y,z)
   * `camera_info`为小狗贴纸realsense的标定数据
 * **opencv_test**包可用于拿视频或图片作为输入来测试算法，更改`opencv_test/src/opencv_test_node.cpp`中的代码就行
-  * 使用方法和detector类似，`catkin_make`后`rosrun opencv_test opencv_test_node`
+  * 使用方法和detector类似，`catkin_make`后
+     * 测图片：`rosrun opencv_test opencv_test_node <image_path>`
+     * 测视频：`rosrun opencv_test opencv_test_node`（视频路径在`opencv_test_node.cpp`里给）
