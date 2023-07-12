@@ -1,0 +1,9 @@
+<launch>
+	<!--param configuration-->
+	<param name="detect_color" value="0" /> <!--0:RED, 1:BLUE-->
+	<param name="input_topic" value="/camera/color/image_raw" />
+    <param name="output_topic" value="/image_converter/output_video" />
+
+	<node pkg="detector" type="detector_node" name="detector_node" output="screen" >
+	</node>
+</launch>
