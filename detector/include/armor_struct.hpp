@@ -10,6 +10,7 @@
 #include <tf2/convert.h>
 
 enum class ArmorType { SMALL, LARGE, INVALID };
+const std::string ARMOR_TYPE_STR[3] = {"small", "large", "invalid"};
 
 struct Light : public cv::RotatedRect    //继承自RotatedRect类
 {

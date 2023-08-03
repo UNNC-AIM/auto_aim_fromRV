@@ -14,7 +14,6 @@
 #include"classifier.hpp"
 #include"pnpSolver.hpp"
 #include"camera_info.hpp"
-#include"transform.hpp"
 
 using namespace cv;
 using namespace std;
@@ -60,7 +59,7 @@ std::vector<Armor> matchLights(const std::vector<Light> & lights, int detect_col
 
 
 // Compressed detecting function (CONTAINS ALL DETECTOR PROCESS)*
-void detect(Mat & image, const int detect_color){
+vector<Armor> detect(Mat & image, const int detect_color){
     if(image.empty())
     {
         cout<<"open image error!"<<endl;
@@ -140,34 +139,35 @@ void detect(Mat & image, const int detect_color){
     cout<<"number of detected armors: "<<armors.size()<<endl;
 
     // --------- select the closest armor (distance to the image center) --------
-    if(!armors.empty()){
-      Armor tracked_armor;
-      float min_distance = armors[0].distance_to_image_center;
-      tracked_armor = armors[0];
-      // repeatly compare armor[0]
-      for (const auto & armor : armors) {
-          if (armor.distance_to_image_center < min_distance) {
-              min_distance = armor.distance_to_image_center;
-              tracked_armor = armor;
-          }
-      }
+    // if(!armors.empty()){
+    //   Armor tracked_armor;
+    //   float min_distance = armors[0].distance_to_image_center;
+    //   tracked_armor = armors[0];
+    //   // repeatly compare armor[0]
+    //   for (const auto & armor : armors) {
+    //       if (armor.distance_to_image_center < min_distance) {
+    //           min_distance = armor.distance_to_image_center;
+    //           tracked_armor = armor;
+    //       }
+    //   }
 
       // Transform the position of the armor from camera coordinate system
       // to the required coordinate system
       // ******* suppose no rotation from camera to robot *******
-      tracked_armor.position.at<double>(0) = tracked_armor.position.at<double>(0) + tf_robot2camera[0];
-      tracked_armor.position.at<double>(1) = tracked_armor.position.at<double>(1) + tf_robot2camera[1];
-      tracked_armor.position.at<double>(2) = tracked_armor.position.at<double>(2) + tf_robot2camera[2];
+    //   tracked_armor.position.at<double>(0) = tracked_armor.position.at<double>(0) + tf_robot2camera[0];
+    //   tracked_armor.position.at<double>(1) = tracked_armor.position.at<double>(1) + tf_robot2camera[1];
+    //   tracked_armor.position.at<double>(2) = tracked_armor.position.at<double>(2) + tf_robot2camera[2];
 
-      // Output the target position and the distance from armor center to image center
-      cout<<"position(x,y,z) = ("<<tracked_armor.position.at<double>(0)<<","<<tracked_armor.position.at<double>(1)<<","<<tracked_armor.position.at<double>(2)<<")"<<endl;
-      cout<<"distance to image center = "<<tracked_armor.distance_to_image_center<<endl;
-    }
+    //   // Output the target position and the distance from armor center to image center
+    //   cout<<"position(x,y,z) = ("<<tracked_armor.position.at<double>(0)<<","<<tracked_armor.position.at<double>(1)<<","<<tracked_armor.position.at<double>(2)<<")"<<endl;
+    //   cout<<"distance to image center = "<<tracked_armor.distance_to_image_center<<endl;
+    // }
 
     // Draw the lights, armors as well as the detected number on the armor on the image
     drawResults(image, lights, armors);
-    imshow("drawn", image);
+    //imshow("drawn", image);
 
+    return armors;
 }
 
 //preprocess image: rgb -> binary
