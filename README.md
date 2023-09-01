@@ -43,9 +43,10 @@ $`catkin_make`
 ### tracker用法：
 * 在已启动detector的前提下，$`rosrun tracker tracker_node`
 * 打开rviz，查看topic`/tracker/marker`，就能查看整车的运动状态，但肯定是不理想的，你有空的话研究一下源码然后改进一下，理想状态是显示的车怎么运动，marker也怎么运动。
+* 现状(可以建出模但是不能跟踪运动)：![image](/shouldbe.png)
 
   
-***aim_msg包里是自定义的消息类型，被detector和tracker调用***
+***auto_aim_msgs包里是自定义的消息类型，被detector和tracker调用***
 
 **opencv_test**包可用于拿视频或图片作为输入来测试算法，更改`opencv_test/src/opencv_test_node.cpp`中的代码就行
   * 使用方法和detector类似，`catkin_make`后
