@@ -23,10 +23,14 @@ $`source ~/.bashrc`
 $`cd ~/aim_ws`  
 $`catkin_make`  
   
-*如果catkin_make失败而且不知道怎么办，或者有其他问题的话，可以找我一起看看(scysw3@nottingham.ac.uk)*
+**如果catkin_make失败而且不知道怎么办，或者有其他问题的话，可以找我一起看看(scysw3@nottingham.ac.uk)*
 
 ### detector用法：
 * ros打开realsense
+* 用不了realsense的话，直接用电脑前置摄像头或者别的网络摄像头也行：
+  * 用ros打开你的摄像头
+  * 将detect.launch中的`input_topic`参数改为你自己摄像头的视频流的topic
+  * 更改`detector/include/camera_info.hpp`中的相机参数为你自己的相机参数（更改后要重新catkin_make），相机参数可以通过查看topic`/camera_info`（也许为其他名字）来看，如果不准的话需要标定，参考http://wiki.ros.org/camera_calibration
 * $`roslaunch detector detect.launch` 开始识别装甲板
 * 可以在rviz中添加`/camera/color/image_raw`的topic来查看标记后的影像
 * 装甲板的位姿、类型等信息在topic`/detector/armors`中，可用$`rostopic echo /detector/armors`来查看
