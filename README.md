@@ -18,6 +18,8 @@ $`source ~/.bashrc`
 * *其中的opencv_test包可以删去，是detector的草稿版*
 * *tracker包是目标状态跟踪器，能跑但效果很不理想，可能是因为没有TF转换（realsense D455的rgb相机坐标系和相机整体坐标系间还需要位姿转换一下，可以通过rqt_tf_tree或者rviz中的tf来看，此包现在没有这一层转换）*
 * ***detector包中的`set(OpenCV_DIR /usr/lib/x86_64-linux-gnu/cmake/opencv4)`这一句需要注释掉，是我的电脑上的opencv的路径，如果之后catkin_make因为找不到opencv报错的话，把这一句中的路径换成自己的opencv所在的路径***
+> （2023.10.22）对于x86处理器而言一般不需要注释？因为安装OpenCV的时候会把所有.cmake文件放在者个目录下（似乎），但是对于OrangePi而言就需要改为`/usr/lib/aarch64-linux-gnu/cmake/opencv4`，猜测一切arm架构处理器上都需要这样操作。此外，注释掉是错误行为，因为100%会报错 --wxq
+  
 
 ### step3:
 $`cd ~/aim_ws`  
