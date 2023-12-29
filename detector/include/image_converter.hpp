@@ -90,9 +90,9 @@ public:
       armor_msg.number = armor.number;
 
       // Try tramsform manually(for tracker debug), but seems useless :(
-      // armor_msg.pose.position.x = armor.position.at<double>(2);
-      // armor_msg.pose.position.y = -armor.position.at<double>(0);
-      // armor_msg.pose.position.z = -armor.position.at<double>(1);
+      armor_msg.pose.position.x = armor.position.at<double>(2);
+      armor_msg.pose.position.y = -armor.position.at<double>(0);
+      armor_msg.pose.position.z = -armor.position.at<double>(1);
 
       // tf2::Quaternion rotation, q_new;
       // rotation.setRPY(0.436, -1.570, 1.134);

@@ -71,7 +71,11 @@ void Tracker::update(const Armors & armors_msg)
         same_id_armors_count++;
         // Calculate the difference between the predicted position and the current armor position
         auto p = armor.pose.position;
+        std::cout<<predicted_position<<std::endl;
         Eigen::Vector3d position_vec(p.x, p.y, p.z);
+        // std::cout<<"-----------------"<<std::endl;
+        // std::cout<<predicted_position<<std::endl;
+        // std::cout<<position_vec<<std::endl;
         double position_diff = (predicted_position - position_vec).norm();
         if (position_diff < min_position_diff) {
           // Find the closest armor
@@ -102,6 +106,10 @@ void Tracker::update(const Armors & armors_msg)
       handleArmorJump(same_id_armor);
     } else {
       // No matched armor found
+      // std::cout<<"yaw_diff: "<<yaw_diff<<std::endl;
+      // std::cout<<"min_position_diff: "<<min_position_diff<<std::endl;
+      // std::cout<<"max_match_yaw_diff_: "<<max_match_yaw_diff_<<std::endl;
+      // std::cout<<"max_match_distance_: "<<max_match_distance_<<std::endl;
       std::cout<<"No matched armor found!"<<std::endl;
     }
   }

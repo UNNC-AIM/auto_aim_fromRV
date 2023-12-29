@@ -139,29 +139,29 @@ vector<Armor> detect(Mat & image, const int detect_color){
     cout<<"number of detected armors: "<<armors.size()<<endl;
 
     // --------- select the closest armor (distance to the image center) --------
-    // if(!armors.empty()){
-    //   Armor tracked_armor;
-    //   float min_distance = armors[0].distance_to_image_center;
-    //   tracked_armor = armors[0];
-    //   // repeatly compare armor[0]
-    //   for (const auto & armor : armors) {
-    //       if (armor.distance_to_image_center < min_distance) {
-    //           min_distance = armor.distance_to_image_center;
-    //           tracked_armor = armor;
-    //       }
-    //   }
+    if(!armors.empty()){
+      Armor tracked_armor;
+      float min_distance = armors[0].distance_to_image_center;
+      tracked_armor = armors[0];
+      // repeatly compare armor[0]
+      for (const auto & armor : armors) {
+          if (armor.distance_to_image_center < min_distance) {
+              min_distance = armor.distance_to_image_center;
+              tracked_armor = armor;
+          }
+      }
 
       // Transform the position of the armor from camera coordinate system
       // to the required coordinate system
       // ******* suppose no rotation from camera to robot *******
-    //   tracked_armor.position.at<double>(0) = tracked_armor.position.at<double>(0) + tf_robot2camera[0];
-    //   tracked_armor.position.at<double>(1) = tracked_armor.position.at<double>(1) + tf_robot2camera[1];
-    //   tracked_armor.position.at<double>(2) = tracked_armor.position.at<double>(2) + tf_robot2camera[2];
+      tracked_armor.position.at<double>(0) = tracked_armor.position.at<double>(0) + tf_robot2camera[0];
+      tracked_armor.position.at<double>(1) = tracked_armor.position.at<double>(1) + tf_robot2camera[1];
+      tracked_armor.position.at<double>(2) = tracked_armor.position.at<double>(2) + tf_robot2camera[2];
 
-    //   // Output the target position and the distance from armor center to image center
-    //   cout<<"position(x,y,z) = ("<<tracked_armor.position.at<double>(0)<<","<<tracked_armor.position.at<double>(1)<<","<<tracked_armor.position.at<double>(2)<<")"<<endl;
-    //   cout<<"distance to image center = "<<tracked_armor.distance_to_image_center<<endl;
-    // }
+      // Output the target position and the distance from armor center to image center
+      cout<<"position(x,y,z) = ("<<tracked_armor.position.at<double>(0)<<","<<tracked_armor.position.at<double>(1)<<","<<tracked_armor.position.at<double>(2)<<")"<<endl;
+      cout<<"distance to image center = "<<tracked_armor.distance_to_image_center<<endl;
+    }
 
     // Draw the lights, armors as well as the detected number on the armor on the image
     drawResults(image, lights, armors);
@@ -174,8 +174,10 @@ vector<Armor> detect(Mat & image, const int detect_color){
 Mat preprocessImage(const Mat & rgb_img){
     cv::Mat gray_img;
     cv::cvtColor(rgb_img, gray_img, cv::COLOR_RGB2GRAY);
+    std::vector<Mat> rgb_channel;
+    cv::split(rgb_img,rgb_channel);
+    cv::Mat binary_img = 1.5 * rgb_channel[2] - 0.3 * rgb_channel[1] - 0.5 * rgb_channel[0];
 
-    cv::Mat binary_img;
     cv::threshold(gray_img, binary_img, binary_thres, 255, cv::THRESH_BINARY);
 
     return binary_img;
