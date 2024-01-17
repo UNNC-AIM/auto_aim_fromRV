@@ -17,8 +17,8 @@ ArmorTrackerNode::ArmorTrackerNode()
   double max_match_distance = nh.param("max_match_distance", 0.15);
   double max_match_yaw_diff = nh.param("max_match_yaw_diff", 1.0);
   tracker_ = std::make_unique<Tracker>(max_match_distance, max_match_yaw_diff);
-  tracker_->tracking_thres = nh.param("tracking_thres", 5);
-  lost_time_thres_ = nh.param("lost_time_thres", 0.3);
+  tracker_->tracking_thres = nh.param("tracking_thres", 10);
+  lost_time_thres_ = nh.param("lost_time_thres", 5);
   ROS_INFO("here2");
   // EKF
   // xa = x_armor, xc = x_robot_center
@@ -73,9 +73,9 @@ ArmorTrackerNode::ArmorTrackerNode()
     return h;
   };
   // update_Q - process noise covariance matrix
-  s2qxyz_ = nh.param("ekf_sigma2_q_xyz", 20.0);
-  s2qyaw_ = nh.param("ekf_sigma2_q_yaw", 100.0);
-  s2qr_ = nh.param("ekf_sigma2_q_r", 800.0);
+  s2qxyz_ = nh.param("ekf_sigma2_q_xyz", 2000.0);
+  s2qyaw_ = nh.param("ekf_sigma2_q_yaw", 1000.0);
+  s2qr_ = nh.param("ekf_sigma2_q_r", 2000.0);
   auto u_q = [this]() {
     Eigen::MatrixXd q(9, 9);
     double t = dt_, x = s2qxyz_, y = s2qyaw_, r = s2qr_;
@@ -95,10 +95,11 @@ ArmorTrackerNode::ArmorTrackerNode()
           0,      0,      0,      0,      0,      0,      0,      0,      q_r;
     // clang-format on
     return q;
+    
   };
   // update_R - measurement noise covariance matrix
-  r_xyz_factor = nh.param("ekf_r_xyz_factor", 0.05);
-  r_yaw = nh.param("ekf_r_yaw", 0.02);
+  r_xyz_factor = nh.param("ekf_r_xyz_factor", 0.001);
+  r_yaw = nh.param("ekf_r_yaw", 0.005);
   auto u_r = [this](const Eigen::VectorXd & z) {
     Eigen::DiagonalMatrix<double, 4> r;
     double x = r_xyz_factor;
@@ -176,6 +177,11 @@ void ArmorTrackerNode::armorsCallback(const auto_aim_msgs::Armors & armors_msg)
   //   armors_msg.armors.end());
 
   // Init message
+  // Get the current timestamp
+  ros::Time current_time = ros::Time::now();
+
+  // Print the timestamp in seconds
+  ROS_INFO("Current Timestamp: %f", current_time.toSec());
   auto_aim_msgs::Target target_msg;
   ros::Time time = armors_msg.header.stamp;
   target_msg.header.stamp = time;

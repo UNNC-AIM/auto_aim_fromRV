@@ -1,0 +1,14 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/unnc-aim/ws_livox/devel/lib/python3/dist-packages",
+        "/home/unnc-aim/ros_ws/carto_ws/install_isolated/lib/python3/dist-packages",
+        "/home/unnc-aim/ros_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/unnc-aim/ws_livox/devel/lib/python3/dist-packages",
+        "/home/unnc-aim/ros_ws/carto_ws/install_isolated/lib/python3/dist-packages",
+        "/home/unnc-aim/ros_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
+}

@@ -52,7 +52,7 @@ void Tracker::update(const Armors & armors_msg)
 {
   // KF predict
   Eigen::VectorXd ekf_prediction = ekf.predict();
-
+  // std::cout<<"pred"<<ekf_prediction<<"\n";
   bool matched = false;
   // Use KF prediction as default target state if no matched armor is found
   target_state = ekf_prediction;
@@ -85,7 +85,6 @@ void Tracker::update(const Armors & armors_msg)
         }
       }
     }
-
     // Store tracker info
     info_position_diff = min_position_diff;
     info_yaw_diff = yaw_diff;
@@ -99,7 +98,7 @@ void Tracker::update(const Armors & armors_msg)
       double measured_yaw = orientationToYaw(tracked_armor.pose.orientation);
       measurement = Eigen::Vector4d(p.x, p.y, p.z, measured_yaw);
       target_state = ekf.update(measurement);
-      std::cout<<"EKF update"<<std::endl;
+
     } else if (same_id_armors_count == 1 && yaw_diff > max_match_yaw_diff_) {
       // Matched armor not found, but there is only one armor with the same id
       // and yaw has jumped, take this case as the target is spinning and armor jumped
@@ -113,7 +112,11 @@ void Tracker::update(const Armors & armors_msg)
       std::cout<<"No matched armor found!"<<std::endl;
     }
   }
+      std::cout<<"EKF update"<<std::endl;
+      ros::Time current_time = ros::Time::now();
 
+      // Print the timestamp in seconds
+      ROS_INFO("Timestamp in EKF: %f", current_time.toSec());
   // Prevent radius from spreading
   if (target_state(8) < 0.12) {
     target_state(8) = 0.12;

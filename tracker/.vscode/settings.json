@@ -12,6 +12,7 @@
         "/opt/ros/noetic/lib/python3/dist-packages"
     ],
     "files.associations": {
+        "memory": "cpp",
         "cctype": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",
@@ -32,7 +33,6 @@
         "bitset": "cpp",
         "chrono": "cpp",
         "cinttypes": "cpp",
-        "codecvt": "cpp",
         "complex": "cpp",
         "condition_variable": "cpp",
         "cstdint": "cpp",
@@ -47,7 +47,6 @@
         "functional": "cpp",
         "iterator": "cpp",
         "map": "cpp",
-        "memory": "cpp",
         "memory_resource": "cpp",
         "numeric": "cpp",
         "optional": "cpp",
@@ -63,7 +62,6 @@
         "hash_map": "cpp",
         "hash_set": "cpp",
         "fstream": "cpp",
-        "future": "cpp",
         "initializer_list": "cpp",
         "iomanip": "cpp",
         "iosfwd": "cpp",
@@ -81,10 +79,7 @@
         "cfenv": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",
-        "valarray": "cpp",
         "variant": "cpp",
-        "bit": "cpp",
-        "*.ipp": "cpp",
-        "orderingmethods": "cpp"
+        "bit": "cpp"
     }
 }
