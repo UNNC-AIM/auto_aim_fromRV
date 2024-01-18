@@ -113,7 +113,7 @@ public:
       // Add the armor to armors_msg
       armors_msg.armors.emplace_back(armor_msg);
     }
-
+    
     armors_pub.publish(armors_msg);
 
     // Update GUI Window

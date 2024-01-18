@@ -88,7 +88,7 @@ void Tracker::update(const Armors & armors_msg)
     // Store tracker info
     info_position_diff = min_position_diff;
     info_yaw_diff = yaw_diff;
-
+    std::cout<<"yaw diff: "<<yaw_diff<<std::endl;
     // Check if the distance and yaw difference of closest armor are within the threshold
     if (min_position_diff < max_match_distance_ && yaw_diff < max_match_yaw_diff_) {
       // Matched armor found
